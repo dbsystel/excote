@@ -1,0 +1,49 @@
+{
+  "name": "excote",
+  "version": "1.0.0",
+  "description": "Package that runs commands and collects result files. Allows to easily publish results as a node express route",
+  "main": "src/executor.js",
+  "scripts": {
+    "test": "npx mocha -c test/**/*.test.js",
+    "lint": "node_modules/.bin/eslint src test",
+    "lint-ci": "node_modules/.bin/eslint -f checkstyle src test > eslint.xml",
+    "coverage": "nyc npm run test"
+  },
+  "engines": {
+    "node": ">=0.10.0 <0.14"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dbsystel/excote.git"
+  },
+  "author": "",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-fs": "^2.0.0",
+    "chai-match": "^1.1.1",
+    "chai-subset": "^1.6.0",
+    "eslint": "^6.8.0",
+    "mocha": "^7.0.0",
+    "mocha-junit-reporter": "^1.23.1",
+    "nyc": "^15.0.0",
+    "sinon": "^8.0.4"
+  },
+  "dependencies": {
+    "read-xml": "^3.0.0",
+    "uuid": "^3.3.3"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "clover",
+      "cobertura",
+      "text"
+    ],
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ]
+  }
+}
