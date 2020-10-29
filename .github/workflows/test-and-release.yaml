@@ -1,5 +1,8 @@
 name: Test and Release
-on: [ push ]
+on:
+  push:
+  pull_request:
+    types: [ opened ]
 
 jobs:
   test-and-release:
@@ -36,10 +39,17 @@ jobs:
         if: |
           steps.cache-yarn-cache-dir.outputs.cache-hit != 'true' ||
           steps.cache-node-modules-dir.outputs.cache-hit != 'true'
+      - name: Generate preview release comment on PR
+        run: yarn semantic-release-github-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Run tests
         run: yarn test
       - name: Release
+        if: ${{ github.event_name == 'push' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn semantic-release
+
