@@ -1,0 +1,45 @@
+name: Test and Release
+on: [ push ]
+
+jobs:
+  test-and-release:
+    name: Run tests and release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Get the yarn cache dir
+        id: yarn-cache-dir
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache yarn cache directory
+        uses: actions/cache@v2
+        id: cache-yarn-cache-dir
+        with:
+          path: ${{ steps.yarn-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Cache node_modules dir
+        id: cache-node-modules-dir
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - name: Install dependencies if the lockfile changed
+        run: yarn --frozen-lockfile
+        if: |
+          steps.cache-yarn-cache-dir.outputs.cache-hit != 'true' ||
+          steps.cache-node-modules-dir.outputs.cache-hit != 'true'
+      - name: Run tests
+        run: yarn test
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn semantic-release
