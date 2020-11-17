@@ -91,6 +91,10 @@ During the pause of the runner, it will return the last result that came from a 
 
 If the pipeline task is completed, and the runner should resume periodic testing, it can be resumed by calling `testExecutor.resumeAsyncRunner()`. This will immediately start a new test run.
 
+## Contribute
+
+See [How to contribute](CONTRIBUTING.md) 
+
 ## License
 
 excote was released under [Apache-2.0](LICENSE)
