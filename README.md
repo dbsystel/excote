@@ -1,5 +1,9 @@
 # excote
 
+
+> [!WARNING]  
+> This project is no longer actively used, and as such, our motivation for maintaining it is low. Feel free to fork it, if you are interested in keeping it alive. If an active fork becomes visible, we will update this README with a link to the new fork.
+
 This is a lightweight npm library meant to help **ex**ecute **co**ntinuous **te**sts. These arbitrary tests generate results as either a junit/xml or as a readable html page, together with a meaningful http status code. The status code can be used, to connect an uptime monitoring like icinga to a service, that reports the status of the executed tests (either synchronous or asynchronous).
 
 Executing tests continuously is needed if you want to check a system for defects, that are not triggered by changes you make (like a redeployment). So a good use case is to execute a set of API tests for a RESTful API, to ensure that it is functioning correctly all the time. This makes sense, if you have noticed, that the system itself is unstable and that you need to correct the state of the system once the tests fail. It can also be helpful to monitor availability, not only of a system as a whole, but also including the core functionality.
