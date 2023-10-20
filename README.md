@@ -2,7 +2,7 @@
 
 
 > [!WARNING]  
-> This project is no longer actively used, and as such, our motivation for maintaining it is low. Feel free to fork it, if you are interested in keeping it alive. If an active fork becomes visible, we will update this README with a link to the new fork.
+> This project is no longer actively used, and as such, our motivation for maintaining it is low. Feel free to fork it, if you are interested in keeping it alive. If you are actively maintaining a fork, please feel free to get in touch with us so we can link to it from here.
 
 This is a lightweight npm library meant to help **ex**ecute **co**ntinuous **te**sts. These arbitrary tests generate results as either a junit/xml or as a readable html page, together with a meaningful http status code. The status code can be used, to connect an uptime monitoring like icinga to a service, that reports the status of the executed tests (either synchronous or asynchronous).
 
